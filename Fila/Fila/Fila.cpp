@@ -3,8 +3,8 @@ using namespace std;
 
 // definicao de tipo
 struct NO {
-	int valor;
-	NO* prox;
+  int valor;
+  NO* prox;
 };
 
 NO* inicio = NULL;
@@ -20,81 +20,95 @@ void remove();
 
 int main()
 {
-	menu();
+  menu();
 }
 
 void menu()
 {
-	int op = 0;
-	while (op != 4) {
-		system("cls"); // somente no windows
-		cout << "Menu Fila";
-		cout << endl << endl;
-		cout << "1 - Inicializar Fila \n";
-		cout << "2 - Inserir elemento \n";
-		cout << "3 - Remover elemento  \n";
-		cout << "4 - Sair \n";
+  int op = 0;
+  while (op != 4) {
+    system("cls"); // somente no windows
+    cout << "Menu Fila";
+    cout << endl << endl;
+    cout << "1 - Inicializar Fila \n";
+    cout << "2 - Inserir elemento \n";
+    cout << "3 - Remover elemento  \n";
+    cout << "4 - Sair \n";
 
-		cout << "Opcao: ";
-		cin >> op;
+    cout << "Opcao: ";
+    cin >> op;
 
-		switch (op)
-		{
-		case 1: inicializar();
-			break;
-		case 2:insere();
-			break;
-		case 3: remove();
-			break;
-		case 4:
-			return;
-		default:
-			break;
-		}
+    switch (op)
+    {
+    case 1: inicializar();
+      break;
+    case 2:insere();
+      break;
+    case 3: remove();
+      break;
+    case 4:
+      return;
+    default:
+      break;
+    }
 
-		system("pause"); // somente no windows
-	}
+    system("pause"); // somente no windows
+  }
 }
 
 void inicializar()
 {
 
-	// se a lista já possuir elementos
-	// libera a memoria ocupada
-	NO* aux = inicio;
-	while (aux != NULL) {
-		NO* paraExcluir = aux;
-		aux = aux->prox;
-		free(paraExcluir);
-	}
+  // se a lista jÃ¡ possuir elementos
+  // libera a memoria ocupada
+  NO* aux = inicio;
+  while (aux != NULL) {
+    NO* paraExcluir = aux;
+    aux = aux->prox;
+    free(paraExcluir);
+  }
 
-	inicio = NULL;
-	fim = NULL;
-	cout << "Fila inicializada \n";
+  inicio = NULL;
+  fim = NULL;
+  cout << "Fila inicializada \n";
 
 }
+
 
 
 void insere()
 {
-	// aloca memoria dinamicamente para o novo elemento
-	NO* novo = (NO*)malloc(sizeof(NO));
-	if (novo == NULL)
-	{
-		return;
-	}
+  // aloca memoria dinamicamente para o novo elemento
+  NO* novo = (NO*)malloc(sizeof(NO));
+  if (novo == NULL)
+  {
+    return;
+  }
 
-	cout << "Digite o elemento: ";
-	cin >> novo->valor;
-	novo->prox = NULL;
+  cout << "Digite o elemento: ";
+  cin >> novo->valor;
+  novo->prox = NULL;
 
-
+  if (inicio == NULL) {
+    inicio = novo;
+    fim = novo;
+  }
+  else {
+    fim->prox = novo;
+    fim = novo;
+  }
 }
 
 void remove()
 {
-
-
-
+  if (inicio == NULL) {
+    cout << "Lista Vazia." << endl;
+  }
+  else {
+    NO* paraExcluir = inicio;
+    inicio = inicio->prox;
+    cout << "O elemento " << paraExcluir->valor << " foi removido." << endl;
+    free(paraExcluir);
+  }
 }
-
+}
